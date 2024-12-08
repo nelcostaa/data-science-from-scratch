@@ -520,3 +520,28 @@ def covariancia(xs: List[float], ys: List[float]) -> float:
 
 assert 22.42 < covariancia(num_friends, daily_minutes) < 22.43
 assert 22.42 / 60 < covariancia(num_friends, daily_hours) < 22.43 / 60
+
+
+def coorelacao(xs: List[float], ys: List[float]) -> float:
+    """mede quanto xs e ys variam em conjunto em relacao as suas medidas"""
+    dv_x = desvio_padrao(xs)
+    dv_y = desvio_padrao(ys)
+    if dv_x > 0 and dv_y > 0:
+        return covariancia(xs, ys) / dv_x / dv_y
+    else:
+        return 0  # sem variacao a correlacao e zero
+
+
+assert 0.24 < coorelacao(num_friends, daily_minutes) < 0.25
+assert 0.24 < coorelacao(num_friends, daily_hours) < 0.25
+
+outlier = num_friends.index(100)  # index of outlier
+
+num_friends_good = [x for i, x in enumerate(num_friends) if i != outlier]
+
+daily_minutes_good = [x for i, x in enumerate(daily_minutes) if i != outlier]
+
+daily_hours_good = [dm / 60 for dm in daily_minutes_good]
+
+assert 0.57 < coorelacao(num_friends_good, daily_minutes_good) < 0.58
+assert 0.57 < coorelacao(num_friends_good, daily_hours_good) < 0.58
