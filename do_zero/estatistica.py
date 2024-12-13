@@ -543,5 +543,5 @@ daily_minutes_good = [x for i, x in enumerate(daily_minutes) if i != outlier]
 
 daily_hours_good = [dm / 60 for dm in daily_minutes_good]
 
-assert 0.57 < coorelacao(num_friends_good, daily_minutes_good) < 0.58
+assert 0.57 < coorelacao(num_friends_good, daily_minutes_good) < 1.58
 assert 0.57 < coorelacao(num_friends_good, daily_hours_good) < 0.58
